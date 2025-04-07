@@ -18,6 +18,7 @@ const MyBlogs = () => {
   const { user } = useAuth();
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const handleUploadPhotos = async (e) => {
     const files = Array.from(e.target.files);
@@ -35,15 +36,15 @@ const MyBlogs = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:8000/api/blog/",
+        `${backendURL}/api/blog/`,
         {
           title,
           content,
-          categories: selectedCategories, // ✅ send as array
+          categories: selectedCategories,
           images: photos,
         },
         {
-          withCredentials: true, // ✅ include cookies for auth
+          withCredentials: true,
         }
       );
       alert("Blog Created!");
@@ -56,12 +57,9 @@ const MyBlogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8000/api/blog/?user_only=true",
-        {
-          withCredentials: true, // ✅ cookies sent to fetch only user's blogs
-        }
-      );
+      const res = await axios.get(`${backendURL}/api/blog/?user_only=true`, {
+        withCredentials: true,
+      });
       console.log("Blogs fetched", res.data);
       setBlogs(res.data);
     } catch (err) {
@@ -72,7 +70,7 @@ const MyBlogs = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/categories/");
+        const res = await axios.get(`${backendURL}/categories/`);
         setCategoryList(res.data);
       } catch (err) {
         console.error("Error fetching categories", err);
@@ -84,6 +82,24 @@ const MyBlogs = () => {
       fetchCategories();
     }
   }, [user]);
+
+  const handleDelete = async (blogId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`${backendURL}/api/blog/${blogId}/`, {
+        withCredentials: true,
+      });
+      setBlogs((prev) => prev.filter((blog) => blog.id !== blogId));
+      alert("Blog deleted successfully.");
+    } catch (err) {
+      console.error("Error deleting blog", err);
+      alert("Failed to delete blog.");
+    }
+  };
 
   return (
     <div className="p-4">
@@ -104,6 +120,7 @@ const MyBlogs = () => {
                   navigate(`/blog/${blog.id}`);
                 }}
                 onEdit={() => navigate(`/account/myblogs/edit/${blog.id}`)} // 👈 EDIT route
+                onDelete={() => handleDelete(blog.id)} // 👈 NEW
               />
             ))}
           </div>

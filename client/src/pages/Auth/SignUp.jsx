@@ -6,13 +6,14 @@ function SignUpPage({ onSuccess, switchToLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/auth/register/",
+        `${backendURL}/auth/register/`,
         { name, email, password },
         { withCredentials: true }
       );
@@ -45,7 +46,6 @@ function SignUpPage({ onSuccess, switchToLogin }) {
         </div>
       </div>
 
-      {/* ✅ Add `onSubmit` to form */}
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="relative">
           <input

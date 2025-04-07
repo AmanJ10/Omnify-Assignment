@@ -1,4 +1,3 @@
-// LoginPage.jsx
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import Button from "../../components/Button";
@@ -19,7 +18,7 @@ const LoginPage = ({ onSuccess, switchToSignup }) => {
     try {
       const response = await login(email, password);
       console.log("Login success:", response);
-      onSuccess(); // optional: close modal or navigate
+      onSuccess();
     } catch (error) {
       console.error("Login failed:", error);
       alert("Invalid credentials, please try again.");

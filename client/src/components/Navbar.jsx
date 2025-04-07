@@ -4,18 +4,20 @@ import Modal from "./Modal";
 import LoginPage from "../pages/Auth/LoginPage";
 import SignUpPage from "../pages/Auth/SignUp";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // Assuming useAuth is exported
+import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
-  const { user, logout, loading } = useAuth(); // ✅ use user from AuthContext
+  const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const openModal = (content) => {
     setModalContent(content);
     setIsModalOpen(true);
+    setMenuOpen(false);
   };
 
   const closeModal = () => {
@@ -27,7 +29,7 @@ const Navbar = () => {
       <nav className="bg-white shadow-md p-4 flex justify-between items-center w-full fixed top-0 left-0 z-50">
         <div className="flex flex-col">
           <div
-            className="flex items-center text-2xl font-bold space-x-2"
+            className="flex items-center text-2xl font-bold space-x-2 cursor-pointer"
             onClick={() => navigate("/")}
           >
             <span>Travel</span>
@@ -40,15 +42,40 @@ const Navbar = () => {
             </svg>
             <span>log</span>
           </div>
-          <div className="text-gray-600 text-sm italic mt-1">
+          <div className="text-gray-600 text-sm italic mt-1 hidden sm:block">
             Document Every Journey
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="sm:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            <svg
+              className="w-6 h-6 text-gray-700"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              {menuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        <div className="hidden sm:flex items-center space-x-4">
           <Button label="Subscribe" className="text-black" />
           <Button label="Contact" className="text-black-500" />
-
           {!loading && user ? (
             <div className="flex items-center space-x-4">
               <div
@@ -86,6 +113,54 @@ const Navbar = () => {
           )}
         </div>
       </nav>
+
+      {menuOpen && (
+        <div className="sm:hidden mt-16 bg-white shadow-md absolute w-full z-40 px-4 py-2 space-y-2">
+          <Button label="Subscribe" className="w-full text-left" />
+          <Button label="Contact" className="w-full text-left" />
+          {!loading && user ? (
+            <>
+              <div
+                className="flex items-center space-x-2 cursor-pointer"
+                onClick={() => {
+                  navigate("/account");
+                  setMenuOpen(false);
+                }}
+              >
+                <img
+                  src={user.profilePicture}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full border"
+                />
+                <span className="text-gray-700 font-medium">
+                  {user.name || "Profile"}
+                </span>
+              </div>
+              <Button
+                onClick={() => {
+                  logout();
+                  setMenuOpen(false);
+                }}
+                label="Logout"
+                className="w-full bg-black text-white hover:bg-gray-800"
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                label="Log In"
+                className="w-full text-left"
+                onClick={() => openModal("login")}
+              />
+              <Button
+                label="Sign Up"
+                className="w-full text-left bg-black text-white hover:bg-gray-800"
+                onClick={() => openModal("signup")}
+              />
+            </>
+          )}
+        </div>
+      )}
 
       <Modal
         isOpen={isModalOpen}

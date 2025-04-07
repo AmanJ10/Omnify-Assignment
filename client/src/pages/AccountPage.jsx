@@ -9,13 +9,14 @@ const AccountPage = () => {
   let { subpage } = useParams();
   const { user, setUser, loading } = useAuth();
   const [redirect, setRedirect] = useState(null);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   if (subpage === undefined) subpage = "profile";
 
   async function logout() {
     try {
       await axios.post(
-        "http://localhost:8000/auth/logout/",
+        `${backendURL}/auth/logout/`,
         {},
         { withCredentials: true }
       );
@@ -40,7 +41,6 @@ const AccountPage = () => {
     return <div className="text-center mt-24">Loading...</div>;
   }
 
-  // Redirect to home if not logged in
   if (!user && !loading) {
     return <Navigate to="/" />;
   }
@@ -53,7 +53,6 @@ const AccountPage = () => {
     <div className="mt-24 px-4">
       <nav className="w-full flex justify-center gap-2 mb-8">
         <Link className={linkClasses("profile")} to="/account">
-          {/* SVG for profile */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -74,7 +73,6 @@ const AccountPage = () => {
           My Profile
         </Link>
         <Link className={linkClasses("myblogs")} to="/account/myblogs">
-          {/* SVG for blogs */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

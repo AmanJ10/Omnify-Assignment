@@ -28,7 +28,7 @@ class CSRFTokenView(APIView):
     def get(self, request):
         return JsonResponse({"csrfToken": get_token(request)})
 
-# 🔹 Register API
+
 class RegisterView(APIView):
     def post(self, request):
         name = request.data.get('name')
@@ -45,7 +45,6 @@ class RegisterView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-# 🔹 Login API (JWT & HTTP-only Cookie)
 class LoginView(APIView):
     def post(self, request):
         email = request.data.get("email")
@@ -74,29 +73,27 @@ class LoginView(APIView):
             max_age=60 * 60 * 24 * 7,
         )
 
-        return response  # ✅ Corrected
+        return response  
 
 
-# 🔹 Logout API 
 class LogoutView(APIView):
     def post(self, request):
         response = Response({"message": "Logged out successfully"}, status=status.HTTP_200_OK)
         response.delete_cookie("access_token")
         return response
 
-# 🔹 Get Authenticated User 
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import AuthenticationFailed
 
 class GetUserView(APIView):
     def get(self, request):
-        token = request.COOKIES.get("access_token")  # 🔹 Get token from cookies
+        token = request.COOKIES.get("access_token")  
         if not token:
-            raise AuthenticationFailed("Unauthorized")  # 🔹 No token found
+            raise AuthenticationFailed("Unauthorized") 
 
         jwt_auth = JWTAuthentication()
-        validated_token = jwt_auth.get_validated_token(token)  # 🔹 Validate token
-        user = jwt_auth.get_user(validated_token)  # 🔹 Get user from token
+        validated_token = jwt_auth.get_validated_token(token)  
+        user = jwt_auth.get_user(validated_token)  
 
         return Response({"user": {"email": user.email, "name":user.name}}, status=status.HTTP_200_OK)

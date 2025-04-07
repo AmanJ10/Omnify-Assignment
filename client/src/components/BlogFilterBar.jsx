@@ -12,11 +12,13 @@ const BlogFilterBar = ({
 }) => {
   const [categories, setCategories] = useState(["All"]);
   const [error, setError] = useState("");
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+  console.log("Backend URL:", backendURL);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/categories/");
+        const response = await axios.get(`${backendURL}/categories/`);
         setCategories(["All", ...response.data.map((cat) => cat.name)]);
       } catch (err) {
         console.error("Failed to fetch categories:", err);

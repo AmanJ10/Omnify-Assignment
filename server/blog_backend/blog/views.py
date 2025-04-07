@@ -17,7 +17,6 @@ class BlogListCreateView(APIView):
         return [IsAuthenticated()]
 
     def get(self, request):
-        # Check if query param `user_only=true` is passed
         user_only = request.query_params.get('user_only') == 'true'
 
         if user_only:
@@ -34,7 +33,7 @@ class BlogListCreateView(APIView):
         title = request.data.get("title")
         content = request.data.get("content")
         category_ids = request.data.get("categories", [])
-        image_urls = request.data.get("images", [])  # ✅ Expect URLs
+        image_urls = request.data.get("images", [])  
 
         try:
             with transaction.atomic():
@@ -86,13 +85,11 @@ class BlogDetailView(APIView):
                 blog.content = content
                 blog.save()
 
-                # ✅ Update categories
                 blog.categories.all().delete()
                 for cat_id in category_ids:
                     category = Category.objects.get(id=cat_id)
                     BlogCategory.objects.create(blog=blog, category=category)
 
-                # ✅ Update images
                 blog.images.all().delete()
                 for image_url in image_urls:
                     BlogImages.objects.create(blog=blog, image=image_url)

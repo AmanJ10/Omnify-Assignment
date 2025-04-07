@@ -12,12 +12,13 @@ const BlogSection = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:8000/api/blog/");
+        const response = await axios.get(`${backendURL}/api/blog/`);
         console.log(response.data);
         setBlogs(response.data);
         setError("");
@@ -32,7 +33,6 @@ const BlogSection = () => {
     fetchBlogs();
   }, []);
 
-  // 🔁 Filter blogs based on selected category
   const filteredBlogs =
     selectedCategory === "All"
       ? blogs
@@ -40,7 +40,6 @@ const BlogSection = () => {
           post.categories?.some((cat) => cat.category_name === selectedCategory)
         );
 
-  // ⏱ Sort blogs based on date
   const sortedBlogs = [...filteredBlogs].sort((a, b) => {
     return sortOrder === "Newest"
       ? new Date(b.date) - new Date(a.date)

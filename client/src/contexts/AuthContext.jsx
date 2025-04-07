@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,10 +6,11 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const fetchCSRFToken = async () => {
     try {
-      await axios.get("http://localhost:8000/auth/csrf/", {
+      await axios.get(`${backendURL}/auth/csrf/`, {
         withCredentials: true,
       });
     } catch (error) {
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/auth/user/", {
+      const response = await axios.get(`${backendURL}auth/user/`, {
         withCredentials: true,
       });
       console.log("User data:", response.data.user);
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await fetchCSRFToken();
       const response = await axios.post(
-        "http://localhost:8000/auth/login/",
+        `${backendURL}/auth/login/`,
         { email, password },
         { withCredentials: true }
       );
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:8000/auth/logout/",
+        `${backendURL}/auth/logout/`,
         {},
         { withCredentials: true }
       );
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCurrentUser(); // check if user is already logged in
+    fetchCurrentUser();
   }, []);
 
   return (

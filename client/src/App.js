@@ -8,7 +8,7 @@ import EditBlogPage from "./pages/EditBlogPage";
 function App() {
   return (
     <>
-      <Navbar /> {/* Always visible */}
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/account/:subpage?" element={<AccountPage />} />

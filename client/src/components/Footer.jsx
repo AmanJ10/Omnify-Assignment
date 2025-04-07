@@ -90,7 +90,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Privacy & Terms */}
         <div className="mt-6 text-center text-gray-500 text-xs">
           <a href="#" className="hover:text-white">
             Privacy Policy

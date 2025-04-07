@@ -14,11 +14,12 @@ const EditBlogPage = () => {
   const [photos, setPhotos] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/blog/${id}/`, {
+        const res = await axios.get(`${backendURL}/api/blog/${id}/`, {
           withCredentials: true,
         });
         const blog = res.data;
@@ -34,7 +35,7 @@ const EditBlogPage = () => {
 
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/categories/");
+        const res = await axios.get(`${backendURL}/categories/`);
         setCategoryList(res.data);
         console.log(res.data);
       } catch (err) {
@@ -62,7 +63,7 @@ const EditBlogPage = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:8000/api/blog/${id}/`,
+        `${backendURL}/api/blog/${id}/`,
         {
           title,
           content,
