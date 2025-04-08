@@ -36,14 +36,10 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">About</h3>
             <ul className="mt-2 space-y-2 text-gray-400 text-sm">
               <li>
-                <a href="#" className="hover:text-white">
-                  About Us
-                </a>
+                <button className="hover:text-white">About Us</button>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
-                  Blog
-                </a>
+                <button className="hover:text-white">Blog</button>
               </li>
             </ul>
           </div>
@@ -52,14 +48,10 @@ const Footer = () => {
             <h3 className="text-lg font-semibold">Support</h3>
             <ul className="mt-2 space-y-2 text-gray-400 text-sm">
               <li>
-                <a href="#" className="hover:text-white">
-                  Contact Us
-                </a>
+                <button className="hover:text-white">Contact Us</button>
               </li>
               <li>
-                <a href="#" className="hover:text-white">
-                  FAQ
-                </a>
+                <button className="hover:text-white">FAQ</button>
               </li>
             </ul>
           </div>
@@ -77,27 +69,22 @@ const Footer = () => {
               </button>
             </div>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <button className="text-gray-400 hover:text-white">
                 <i className="fab fa-instagram"></i>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              </button>
+              <button className="text-gray-400 hover:text-white">
                 <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              </button>
+              <button className="text-gray-400 hover:text-white">
                 <i className="fab fa-twitter"></i>
-              </a>
+              </button>
             </div>
           </div>
         </div>
 
         <div className="mt-6 text-center text-gray-500 text-xs">
-          <a href="#" className="hover:text-white">
-            Privacy Policy
-          </a>{" "}
-          |
-          <a href="#" className="hover:text-white ml-2">
-            Terms of Service
-          </a>
+          <button className="hover:text-white">Privacy Policy</button> |
+          <button className="hover:text-white ml-2">Terms of Service</button>
         </div>
       </div>
     </footer>

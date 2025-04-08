@@ -45,7 +45,7 @@ const EditBlogPage = () => {
 
     fetchBlog();
     fetchCategories();
-  }, [id]);
+  }, [backendURL, id]);
 
   const handleUploadPhotos = async (e) => {
     const files = Array.from(e.target.files);

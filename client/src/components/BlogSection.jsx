@@ -31,7 +31,7 @@ const BlogSection = () => {
     };
 
     fetchBlogs();
-  }, []);
+  }, [backendURL]);
 
   const filteredBlogs =
     selectedCategory === "All"

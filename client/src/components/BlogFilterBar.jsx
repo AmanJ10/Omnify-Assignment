@@ -27,7 +27,7 @@ const BlogFilterBar = ({
     };
 
     fetchCategories();
-  }, []);
+  }, [backendURL]);
 
   return (
     <div className="flex flex-wrap justify-between items-center py-4">

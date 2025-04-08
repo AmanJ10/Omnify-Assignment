@@ -81,7 +81,8 @@ const MyBlogs = () => {
       fetchBlogs();
       fetchCategories();
     }
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backendURL, user]);
 
   const handleDelete = async (blogId) => {
     const confirmDelete = window.confirm(
