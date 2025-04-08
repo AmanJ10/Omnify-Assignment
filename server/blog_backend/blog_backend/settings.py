@@ -81,17 +81,17 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]  # ✅ Correct frontend URL
-CORS_ALLOW_CREDENTIALS = True  # ✅ Allows cookies to be sent
-CSRF_COOKIE_HTTPONLY = False  # ❌ Set to False so JS can read the CSRF cookie (temporary)
-CSRF_COOKIE_SAMESITE = "Lax"  # ✅ Allows cross-origin requests
-CSRF_USE_SESSIONS = False  # ✅ Must be False to use CSRF cookies
-CSRF_COOKIE_SECURE = False  # ❌ Set to True only in production with HTTPS
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "https://travel-blogger1.netlify.app"] 
+CORS_ALLOW_CREDENTIALS = True  
+CSRF_COOKIE_HTTPONLY = False  
+CSRF_COOKIE_SAMESITE = "None"  
+CSRF_USE_SESSIONS = False  
+CSRF_COOKIE_SECURE = True
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]  # ✅ Ensure correct frontend URL
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://travel-blogger1.netlify.app"] 
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 7 days
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  
 
 CORS_ALLOW_HEADERS = [
     "content-type",

@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchCurrentUser = async () => {
     try {
-      const response = await axios.get(`${backendURL}auth/user/`, {
+      const response = await axios.get(`${backendURL}/auth/user/`, {
         withCredentials: true,
       });
       console.log("User data:", response.data.user);
