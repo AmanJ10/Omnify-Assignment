@@ -8,6 +8,7 @@ const BlogPage = () => {
   const [blog, setBlog] = useState(null);
   const [error, setError] = useState("");
   const [isImageSliderOpen, setImageSliderOpen] = useState(false);
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   function handleImageClick() {
     setImageSliderOpen(true);
@@ -19,9 +20,7 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/blog/${id}/`
-        );
+        const response = await axios.get(`${backendURL}/api/blog/${id}/`);
         setBlog(response.data);
         console.log(response.data);
       } catch (err) {
