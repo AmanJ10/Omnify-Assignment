@@ -1,6 +1,6 @@
 # 📝 Full Stack Blog Application
 
-A full-stack blog platform where users can register, log in, and create/edit/delete blogs. Built with **React (frontend)** and **Django (backend)**, using **PostgreSQL** as the database. Categories like "Mountains", "Beaches", etc., are predefined.
+A full-stack blog platform where users can register, log in, and create/edit/delete blogs. Built with **React (frontend)** and **Django (backend)**, using **MySQL** as the database. Categories like "Mountains", "Beaches", etc., are predefined.
 
 ---
 
@@ -22,7 +22,7 @@ A full-stack blog platform where users can register, log in, and create/edit/del
 |------------|-------------------------------------------|
 | Frontend   | React JS, Axios, Tailwind CSS, React Router |
 | Backend    | Django, Django REST Framework, JWT        |
-| Database   | PostgreSQL                                |
+| Database   | MySQL                                |
 | Deployment | Netlify (frontend), Clever Cloud (backend) |
 
 ---
