@@ -68,8 +68,8 @@ class LoginView(APIView):
             key="access_token",
             value=tokens["access"],
             httponly=True,
-            secure=False,  # ⚠️ Set to True in production
-            samesite="Lax",  # or "None" if using HTTPS and cross-origin
+            secure=True, 
+            samesite="None",
             max_age=60 * 60 * 24 * 7,
         )
 
