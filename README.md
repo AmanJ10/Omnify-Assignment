@@ -12,7 +12,7 @@ A full-stack blog platform where users can register, log in, and create/edit/del
 - 📂 Predefined blog categories
 - 📜 Pagination and blog details view
 - 📦 REST API built with Django REST Framework
-- ☁️ Deployed using Clever Cloud (backend) and Netlify (frontend)
+- ☁️ Deployed using Render (backend) and Netlify (frontend)
 
 ---
 
@@ -23,7 +23,7 @@ A full-stack blog platform where users can register, log in, and create/edit/del
 | Frontend   | React JS, Axios, Tailwind CSS, React Router |
 | Backend    | Django, Django REST Framework, JWT        |
 | Database   | MySQL                                |
-| Deployment | Netlify (frontend), Clever Cloud (backend) |
+| Deployment | Netlify (frontend), Render (backend) |
 
 ---
 
