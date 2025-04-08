@@ -30,7 +30,7 @@ const BlogPage = () => {
     };
 
     fetchBlogDetails();
-  }, [id]);
+  }, [backendURL, id]);
 
   if (error) {
     return <div className="text-center text-red-600 mt-6">{error}</div>;
